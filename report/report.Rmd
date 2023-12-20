@@ -285,7 +285,7 @@ full_database <<- full_database
 
 ```
 
-````{r get_types, results='asis', warning= FALSE, message = NA}
+```{r get_types, results='asis', warning= FALSE, message = NA}
 soil_types <- filtered_database %>% 
   filter(sample_type == "Soil") %>% 
   filter(sample_description_number_1 != "OM") %>% 
@@ -359,7 +359,7 @@ if(testing_report == "No") {
   if(proceed != "c") stop("\n\n* Thank you! Please investigate the database before running the report again.* \n\n")
 }
 
-````
+```
 
 ```{r header_file_creator}
 # possible sampletypes: soil, water, turf
@@ -434,6 +434,20 @@ header_file_create <- function(sampletype, title, trends=FALSE) {
 }
 ```
 
+```{r title_page}
+torv_logo_ratio <- 640/189
+torv_logo_height <- 0.75
+
+officer::fpar(
+  officer::external_img(here("report", "assets", "torv-logo.png"), 
+                        height = torv_logo_height, width = torv_logo_height * torv_logo_ratio, 
+                        alt = "TORV Sustainable Agronomics"),
+  fp_p = officer::fp_par(text.align = "center")
+)
+```
+
+\newpage
+
 ```{r logo_header}
 torv_logo_ratio <- 640/189
 torv_logo_height <- 0.75
@@ -458,6 +472,7 @@ Cover Letter
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas facilisis sollicitudin magna at condimentum. Vestibulum at aliquam lorem. Aliquam ut nibh pretium, volutpat metus eu, fermentum velit. Cras dapibus placerat viverra. Etiam faucibus lectus ac neque scelerisque fringilla. Nunc mi velit, tristique ac placerat gravida, porttitor at ante. Phasellus vehicula.
 
 Best Regards,
+
 ```{r signature}
 signature_logo_ratio <- 144/23
 signature_logo_height <- 0.25
@@ -505,7 +520,6 @@ nearest_station_index <- zipcode_geometry %>%
 nearest_station_data <<- monthly_normals[nearest_station_index[1],] 
 ```
 
-
 ```{r prepare_element_tables_and_auto_comments}
 # This script asks for climate values input for the soil analysis, if there are soil types to analyse
 # It then prepares the overall deficits table, for subsetting by soil type and pulling into the report below
@@ -522,7 +536,6 @@ if(length(soil_types > 0)){
 
 
 ```
-
 
 ```{r exec_summary, results='asis'}
 
@@ -778,4 +791,3 @@ if(length(water_types > 0)) { # So the section only shows up if there are Water 
 
 
 ```
-
